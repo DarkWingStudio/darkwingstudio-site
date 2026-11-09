@@ -1,7 +1,7 @@
 {
   "name": "DarkWing Studio",
   "short_name": "DarkWing",
-  "description": "Minecraft, software, and digital art by DarkWing Studio.",
+  "description": "Software, web projects, and digital art by DarkWing Studio.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f2f0e9",
