@@ -1,7 +1,7 @@
 # DarkWing Studio
 
-Static creative studio platform for DarkWing Studio, combining a portfolio, digital assets, and versioned Minecraft reference guides.
-Built with plain HTML, CSS, vanilla JavaScript, and small Node-based generation and validation scripts.
+Static creative studio platform for DarkWing Studio, combining a portfolio, open-source software projects, and digital 3D artwork.
+Built with plain HTML5, CSS custom properties, and vanilla JavaScript (zero runtime framework dependencies).
 
 **Live:** [darkwingstudio.netlify.app](https://darkwingstudio.netlify.app/)
 
@@ -9,29 +9,30 @@ Built with plain HTML, CSS, vanilla JavaScript, and small Node-based generation 
 
 | Route | Purpose |
 |---|---|
-| `/` | Main hub - social links, project highlights, and channel directory |
-| `/about/` | Studio background and creator profile |
+| `/` | Main hub — social links, project highlights, and official channel directory |
+| `/about/` | Studio background, creator profile, and philosophy |
 | `/projects/` | Open-source software, web builds, and developer utilities |
-| `/art/` | Digital art portfolio |
-| `/art/assets/` | Filterable gallery of 4K wallpapers and profile avatars |
+| `/art/` | Digital art portfolio and 3D visual showcases |
+| `/art/assets/` | Downloadable 4K wallpapers and profile avatars |
 | `/changelog/` | Public chronological release log of studio updates and technical milestones |
-| `/privacy/` | Privacy policy and cookie-free data disclosure |
-| `/terms/` | Terms of use, download license, and trademark disclaimers |
-| `/404.html` | Custom error recovery portal with live search, mob lookup, and destination routing |
+| `/privacy/` | Privacy policy and tracker-free static data disclosure |
+| `/terms/` | Terms of use, download license, and copyright notices |
+| `/404.html` | Custom error recovery portal with live search and destination routing |
 
 ## Tech Stack
 
-- **HTML5** - semantic markup, Schema.org JSON-LD (@graph Organization, WebSite, CollectionPage, FAQPage, Article), Open Graph + Twitter Card meta
-- **CSS** - single `Styles.css` with CSS custom properties, radial gradient backgrounds, cubic-bezier hover animations, responsive dual-panel layout, and guide data tables
-- **JavaScript** - `script.js` handles browser interactions (active navigation, copy year, dynamic filters, recovery routing)
+- **HTML5** — semantic markup, Schema.org JSON-LD structured data (`@graph` Organization, WebSite, CollectionPage), Open Graph, and Twitter Card metadata
+- **CSS3** — `styles.css` with CSS custom properties, responsive dual-panel layout, cubic-bezier hover transitions, and dark/light paper palette
+- **JavaScript** — vanilla `script.js` handling dynamic copyright year, email obfuscation, and active navigation states; `404.js` handling client-side destination filtering
 
 ## Project Structure
 
 ```
 ├── index.html              # Home / link hub
-├── Styles.css              # Global stylesheet
+├── styles.css              # Global stylesheet
 ├── script.js               # Shared runtime (dynamic year, email, filters)
 ├── 404.html                # Custom error recovery portal
+├── 404.js                  # Search and typo suggestions for 404 portal
 ├── about/index.html        # Studio about & creator profile
 ├── projects/index.html     # Software & developer builds
 ├── art/
@@ -42,49 +43,49 @@ Built with plain HTML, CSS, vanilla JavaScript, and small Node-based generation 
 ├── terms/index.html        # Terms of use
 ├── assets/
 │   ├── ProfilePIC.webp     # Site icon and avatar
-│   ├── og-image.jpg        # 1200x630 social sharing card
-│   ├── og-image.png        # 1672x941 high-res social card
-│   ├── food/               # Food sprites
-│   ├── armor/              # Armor sprites
-│   ├── ores/               # Ore sprites
-│   ├── tools/              # Tool sprites
-│   └── mobs/               # Mob and variant sprites
-├── netlify.toml            # Headers, caching, redirects
-├── robots.txt              # Crawler access policy (2026 AI bots included)
+│   └── og-image.jpg        # 1200x630 social sharing card (< 100 KB)
+├── netlify.toml            # Headers, CSP, caching, and redirects
+├── robots.txt              # Crawler access policy (AI bots included)
 ├── sitemap.xml             # XML sitemap for search engines
 ├── llms.txt                # LLM/AI agent discoverability manifest
-├── site.webmanifest        # PWA manifest
+├── site.webmanifest        # Web application manifest
 └── LICENSE                 # MIT
 ```
 
 ## SEO and Discoverability
 
-- Open Graph and Twitter Card tags across every page
-- Custom `og-image.jpg` (< 100 KB) optimized for social sharing
-- Schema.org JSON-LD structured data on all pages
-- No advertising, analytics, or tracking scripts are loaded site-wide
-- Comprehensive `meta name="keywords"` implementation across all published HTML pages
-- `robots.txt` with explicit directives for Google, Bing, OpenAI, Anthropic, Perplexity, Apple, and Amazon crawlers
-- `llms.txt` manifest for AI agent discoverability
-- XML sitemap covering all indexable pages
+- Open Graph and Twitter Card tags across every published route
+- Optimized `og-image.jpg` (< 100 KB) for high-performance social preview generation
+- Schema.org JSON-LD structured data with breadcrumb hierarchies
+- Zero advertising, analytics, or third-party tracking scripts loaded site-wide
+- Comprehensive `meta name="keywords"` implementation across all HTML pages
+- `robots.txt` with explicit directives for modern web and AI agent crawlers
+- `llms.txt` manifest providing machine-readable studio context
+- Canonical URLs and XML sitemap covering all active indexable routes
 
 ## Netlify Configuration
 
 Defined in `netlify.toml`:
 
-- **Security headers** - `X-Frame-Options: DENY`, `X-XSS-Protection`, `X-Content-Type-Options: nosniff`, strict referrer policy
-- **Asset caching** - immutable 1-year `Cache-Control` for CSS, JS, WebP, PNG, SVG, and JPG
-- **Deployment** - Pure static zero-build deployment served directly from root (`publish = "."`)
-- **Redirects** - Catch-all `/*` serves `404.html` with a proper 404 status; static mob detail routes remain directly addressable
+- **Security headers** — strict Content Security Policy (`style-src 'self'`, `script-src 'self'`), `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, and `Strict-Transport-Security` preload
+- **Asset caching** — 1-year immutable `Cache-Control` paired with manual query versioning (`?v=N`) for versioned stylesheets and scripts; immutable caching on static image assets
+- **Deployment** — Pure static zero-build deployment served directly from root (`publish = "."`)
+- **Redirects** — Catch-all `/*` serves `/404.html` with a 404 status code
 
 ## Local Development
 
 ```bash
-# Serve locally with any static HTTP server (e.g. VS Code Live Server or python):
+# Serve locally with any static HTTP server (e.g. Python):
 python -m http.server 5500
 # Or open index.html directly in a browser
 ```
 
+## Planned / Roadmap
+
+- **Minecraft Knowledge Hub** — Automated static compilation (`generate.js`) reading JSON entity/game datasets (`data/mobs.json`, etc.) to produce statically indexable reference pages under `/minecraft/`
+- **Arcade Mini-Game** — Canvas-based zero-dependency mini-game matching studio design tokens, linked from `/projects/`
+- **Offline / PWA Support** — Service worker scoped to arcade routes (`/arcade/sw.js`) supporting offline gameplay
+
 ## License
 
-MIT - see [LICENSE](LICENSE) for details.
+MIT — see [LICENSE](LICENSE) for details.

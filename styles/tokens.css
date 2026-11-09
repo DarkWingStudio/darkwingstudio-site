@@ -1,0 +1,71 @@
+/* Hallmark: darkwing-studio / theme: editorial / anchor: #65438a */
+:root {
+  color-scheme: light;
+  --paper: #f2f0e9;
+  --panel: #faf9f5;
+  --paper-bright: #fefefe;
+  --ink: #1d1c20;
+  --light-ink: #faf8f2;
+  --muted: #69666a;
+  --line: #dedbd3;
+  --accent: #65438a;
+  --accent-soft: #eee8f3;
+  --night: #25212a;
+  --night-soft: #d8d0df;
+  --focus: #9a7041;
+  font-family: Inter, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  scroll-behavior: smooth;
+  overflow-x: clip;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: clip;
+  background: radial-gradient(circle at top center, var(--paper-bright), var(--paper));
+  background-attachment: fixed;
+  color: var(--ink);
+  font-size: 16px;
+}
+
+a {
+  color: inherit;
+}
+
+a:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 4px;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 10;
+  top: 12px;
+  left: 12px;
+  padding: 12px 16px;
+  border-radius: 6px;
+  background: var(--ink);
+  color: var(--light-ink);
+  font-size: 14px;
+  font-weight: 650;
+  transform: translateY(-160%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}

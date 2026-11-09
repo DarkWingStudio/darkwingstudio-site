@@ -26,10 +26,15 @@ yarn-error.log*
 scratch/
 .system_generated/
 
-# Minecraft Assets
+# Experimental / Work in Progress (untracked until published)
+arcade/
+minecraft/
+data/
+
+# Minecraft Assets (untracked until published)
 assets/armor/
 assets/food/
-assets/gui/
-assets/mobs/
 assets/ores/
 assets/tools/
+assets/mobs/
+assets/gui/

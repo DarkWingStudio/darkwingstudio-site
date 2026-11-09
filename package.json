@@ -1,0 +1,14 @@
+{
+  "name": "darkwing-studio",
+  "version": "3.0.0",
+  "description": "Static creative studio platform for DarkWing Studio",
+  "type": "module",
+  "scripts": {
+    "generate": "node scripts/generate.js",
+    "build": "node scripts/generate.js",
+    "serve": "python -m http.server 5500"
+  },
+  "author": "DarkWing Studio",
+  "license": "MIT"
+}
+

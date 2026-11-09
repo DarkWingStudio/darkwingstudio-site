@@ -1,30 +1,33 @@
 # DarkWing Studio
 
-> DarkWing Studio is an independent creative studio focused on Minecraft,
-> software and web projects, digital art, animation, and gaming content. DarkWing Studio is the official hub for its projects, creations, guides, digital assets, and official online channels.
+> DarkWing Studio is an independent creative studio building open-source software, web tools, and digital 3D artwork. DarkWing Studio is the official online hub for its open projects, creative experiments, 4K digital wallpapers, and verified social channels.
 
 ## Core Pages
-- [Home](https://darkwingstudio.netlify.app/): Official DarkWing Studio homepage.
-- [About](https://darkwingstudio.netlify.app/about/): About DarkWing Studio and its areas of work.
-- [Projects](https://darkwingstudio.netlify.app/projects/): Software, web projects, and open-source work.
-- [Art](https://darkwingstudio.netlify.app/art/): Digital art, wallpapers, profile pictures, and visual projects.
-- [Art Assets](https://darkwingstudio.netlify.app/art/assets/): Downloadable 4K wallpapers and PFPs.
-- [Changelog](https://darkwingstudio.netlify.app/changelog/): Chronological release log of studio updates, feature additions, and technical fixes.
+- [Home](https://darkwingstudio.netlify.app/): Official DarkWing Studio homepage and link directory.
+- [About](https://darkwingstudio.netlify.app/about/): Studio philosophy, solo background, and creator profile.
+- [Projects](https://darkwingstudio.netlify.app/projects/): Software, web experiments, and open-source GitHub repositories.
+- [Art](https://darkwingstudio.netlify.app/art/): Digital art showcases, 3D renders, and visual creations.
+- [Art Assets](https://darkwingstudio.netlify.app/art/assets/): Downloadable 4K wallpapers and profile avatars.
+- [Arcade Hub](https://darkwingstudio.netlify.app/arcade/): DarkWing Studio arcade games listing.
+- [T-Rex Runner](https://darkwingstudio.netlify.app/arcade/t-rex-runner/): Endless runner canvas game with offline PWA support, day/night cycle, and zero external libraries.
+- [Minecraft Database](https://darkwingstudio.netlify.app/minecraft/mobs/): Minecraft mob compendium with stats, drops, and lore.
+- [Changelog](https://darkwingstudio.netlify.app/changelog/): Chronological release log of studio updates, feature additions, and technical milestones.
 - [Privacy Policy](https://darkwingstudio.netlify.app/privacy/): Static hosting, contact data, cookie transparency, and privacy disclosure.
-- [Terms of Use](https://darkwingstudio.netlify.app/terms/): Personal wallpaper download license, MIT code license, and Mojang trademark disclaimer.
+- [Terms of Use](https://darkwingstudio.netlify.app/terms/): Personal wallpaper download license, MIT code license, and copyright notices.
 
 ## Brand Assets
-- [Social Graph Image (JPG)](https://darkwingstudio.netlify.app/assets/og-image.jpg): Universal 1200x630 social sharing preview card (<100KB).
-- [Social Graph Image (PNG)](https://darkwingstudio.netlify.app/assets/og-image.png): High-resolution 1672x941 social sharing preview card.
+- [Social Graph Image (JPG)](https://darkwingstudio.netlify.app/assets/og-image.jpg): Universal 1200x630 social sharing preview card (< 100 KB).
 
 ## Official Channels
 - [GitHub](https://github.com/DarkWingStudio): Open-source projects and code.
-- [YouTube](https://www.youtube.com/@DarkWing-in): Minecraft and development videos.
+- [YouTube](https://www.youtube.com/@DarkWing-in): Development videos and tutorials.
 - [Instagram](https://www.instagram.com/darkwingstudio.in/): Official visual content.
 - [Pinterest](https://www.pinterest.com/Darkwingstudio): Art, wallpapers, and visual references.
 - [X](https://x.com/DarkWingStudio): Updates and development notes.
 - [Reddit](https://www.reddit.com/user/darkwingstudio): Community discussions and releases.
 - [DeviantArt](https://www.deviantart.com/darkwingstudio): Digital artwork and gallery collections.
 
-## Content limitations
-- The site has no advertising, analytics, or tracking scripts and does not require accounts.
+## Content and Architecture
+- The site has no advertising, third-party analytics, or tracking cookies.
+- Hosted statically with strict Content Security Policy and zero server-side runtimes.
+- The Arcade section uses localStorage exclusively to persist game high scores on-device; no data is transmitted to any server.

@@ -1,3 +1,4 @@
+/* --- Module: styles/tokens.css --- */
 /* Hallmark: darkwing-studio / theme: editorial / anchor: #65438a */
 :root {
   color-scheme: light;
@@ -70,6 +71,8 @@ a:focus-visible {
   transform: translateY(0);
 }
 
+
+/* --- Module: styles/layout.css --- */
 .site-frame {
   width: min(1120px, calc(100% - 48px));
   margin: 0 auto;
@@ -112,6 +115,7 @@ a:focus-visible {
   font-size: 11px;
   font-weight: 750;
   letter-spacing: 0.04em;
+  object-fit: cover;
 }
 
 .topbar-label,
@@ -421,6 +425,7 @@ h2 {
   color: #6d696d;
   font-size: 18px;
   line-height: 1;
+  vertical-align: middle;
   transition: color 140ms ease, transform 140ms ease;
 }
 
@@ -872,6 +877,8 @@ h2 {
   }
 }
 
+
+/* --- Module: styles/components.css --- */
 /* Content Pages (About / Minecraft / Projects / Art)  */
 
 .site-card--content {
@@ -897,6 +904,10 @@ h2 {
   letter-spacing: 0.13em;
   color: var(--muted);
   text-transform: uppercase;
+}
+
+.sidebar-heading--spaced {
+  margin-top: 24px;
 }
 
 .sidebar-panel .link-list {
@@ -1442,6 +1453,8 @@ h2 {
   height: 14px;
 }
 
+
+/* --- Module: styles/pages.css --- */
 /* ==========================================================================
    Minecraft Mob Database Components (Enhanced Design)
    ========================================================================== */
@@ -3090,352 +3103,159 @@ textarea:focus-visible,
   gap: 10px;
 }
 
-
-/* Generated utility classes for former inline styles; kept in the external stylesheet for CSP enforcement. */
-.u-inline-1 {
-  border-radius: 9px 3px 9px 3px; object-fit: cover;
+/* Semantic replacements for utility classes */
+.wordmark-icon--circle {
+  border-radius: 50%;
+  object-fit: cover;
 }
 
-.u-inline-2 {
+.site-card--single {
   padding: clamp(32px, 5vw, 54px) clamp(20px, 4vw, 42px);
 }
 
-.u-inline-3 {
-  display: flex; align-items: center; gap: 8px;
+.error-suggestion-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.u-inline-4 {
-  color: var(--accent); flex-shrink: 0;
+.error-suggestion-icon {
+  color: var(--accent);
+  flex-shrink: 0;
 }
 
-.u-inline-5 {
+.error-suggestion-name {
   color: var(--accent);
 }
 
-.u-inline-6 {
-  padding: 6px 14px; font-size: 12px;
+.btn-sm {
+  padding: 6px 14px;
+  font-size: 12px;
 }
 
-.u-inline-7 {
-  cursor: pointer;
-}
-
-.u-inline-8 {
+.error-divider {
   color: var(--line);
 }
 
-.u-inline-9 {
-  display: inline-block; vertical-align: middle;
-}
-
-.u-inline-10 {
-  margin-top: 24px;
-}
-
-.u-inline-11 {
+.gallery-filter-bar {
   margin-bottom: 24px;
 }
 
-.u-inline-12 {
-  font-size: 1.35rem; margin-top: 24px; margin-bottom: 8px;
+.gallery-title {
+  font-size: 1.35rem;
+  margin-top: 24px;
+  margin-bottom: 8px;
 }
 
-.u-inline-13 {
+.asset-card-preview--square {
   aspect-ratio: 1 / 1;
 }
 
-.u-inline-14 {
+.changelog-intro {
   margin-bottom: 1.5rem;
 }
 
-.u-inline-15 {
-  font-size: 1.35rem; margin-top: 28px; margin-bottom: 16px;
-}
-
-.u-inline-16 {
-  border-radius: 50%; object-fit: cover;
-}
-
-.u-inline-17 {
-  margin-top: 32px; width: 100%;
-}
-
-.u-inline-18 {
-  margin-top: auto;
-}
-
-.u-inline-19 {
-  margin-top: 32px; margin-bottom: 32px; width: 100%;
-}
-
-.u-inline-20 {
-  margin-bottom: 0.5rem;
-}
-
-.u-inline-21 {
-  margin-top: 20px;
-}
-
-.u-inline-22 {
-  image-rendering: pixelated;
-}
-
-.u-inline-23 {
-  font-size: 13px; font-weight: 500; color: var(--muted);
-}
-
-.u-inline-24 {
-  font-size: 1.35rem; margin-top: 32px; margin-bottom: 8px;
-}
-
-.u-inline-25 {
+.changelog-history-title {
+  font-size: 1.35rem;
+  margin-top: 28px;
   margin-bottom: 16px;
 }
 
-.u-inline-26 {
-  display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap;
+.social-block-desktop {
+  margin-top: 32px;
+  width: 100%;
 }
 
-.u-inline-27 {
-  background: transparent; border-color: var(--line); color: var(--ink);
+.social-block-mobile {
+  margin-top: 32px;
+  margin-bottom: 32px;
+  width: 100%;
 }
 
-.u-inline-28 {
-  opacity: 0.95;
+.studio-note {
+  margin-top: auto;
 }
 
-.u-inline-29 {
-  background: rgba(155, 89, 182, 0.15); color: #8e44ad;
+.policy-intro {
+  margin-top: 28px;
+  margin-bottom: 16px;
+  font-size: 1.25rem;
 }
 
-.u-inline-30 {
+.contact-block--spaced {
+  margin-bottom: 1rem;
+}
+
+/* Arcade Game Experience */
+.arcade-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.arcade-canvas-frame {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  background: var(--night, #1a1520);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.arcade-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  cursor: pointer;
+}
+
+.arcade-hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 440px;
+  padding: 10px 14px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--ink);
+}
+
+.arcade-stat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.arcade-stat-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   color: var(--muted);
 }
 
-.u-inline-31 {
-  background: rgba(52, 152, 219, 0.15); color: #2980b9;
+.arcade-stat-value {
+  font-weight: 700;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: var(--accent);
 }
 
-.u-inline-32 {
-  background: var(--paper); border: 1px solid var(--line); border-radius: 10px 3px 10px 3px; padding: 22px; margin-bottom: 2rem;
+.arcade-help-text {
+  font-size: 12.5px;
+  color: var(--muted);
+  text-align: center;
+  max-width: 440px;
+  line-height: 1.5;
 }
 
-.u-inline-33 {
-  margin-top: 0; font-size: 16px; margin-bottom: 8px;
-}
-
-.u-inline-34 {
-  font-size: 13px; color: var(--muted); line-height: 1.6; margin: 0 0 14px 0;
-}
-
-.u-inline-35 {
-  display: flex; gap: 14px; flex-wrap: wrap;
-}
-
-.u-inline-36 {
-  font-size: 12px; padding: 6px 14px;
-}
-
-.u-inline-37 {
-  font-size: 12px; padding: 6px 14px; background: transparent; border-color: var(--line); color: var(--ink);
-}
-
-.u-inline-38 {
-  padding: 40px 0; text-align: center; color: var(--muted);
-}
-
-.u-inline-39 {
-  width: fit-content;
-}
-
-.u-inline-40 {
-  margin: 4px 0 8px 0; font-size: 1.5rem; color: var(--light-ink);
-}
-
-.u-inline-41 {
-  color: var(--night-soft); font-size: 13px; line-height: 1.6; margin: 0 0 12px 0;
-}
-
-.u-inline-42 {
-  font-size: 1.35rem; margin-top: 36px; margin-bottom: 8px;
-}
-
-.u-inline-43 {
-  margin-top: 8px;
-}
-
-.u-inline-44 {
-  margin-top: 16px;
-}
-
-.u-inline-45 {
-  margin-bottom: 2rem;
-}
-
-.u-inline-46 {
-  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 16px;
-}
-
-.u-inline-47 {
-  margin-bottom: 4px; font-size: 1.35rem;
-}
-
-.u-inline-48 {
-  margin: 0;
-}
-
-.u-inline-49 {
-  display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; align-items: center; justify-content: space-between;
-}
-
-.u-inline-50 {
-  margin-bottom: 0;
-}
-
-.u-inline-51 {
-  position: relative; min-width: 220px; flex: 1; max-width: 320px;
-}
-
-.u-inline-52 {
-  width: 100%; padding: 9px 14px; font-size: 13px; border-radius: 6px 2px 6px 2px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); outline: none;
-}
-
-.u-inline-53 {
-  margin-top: 36px;
-}
-
-.u-inline-54 {
-  margin-top: 10px; margin-bottom: 14px;
-}
-
-.u-inline-55 {
-  font-size: 15px;
-}
-
-.u-inline-56 {
-  grid-column: 1 / -1; padding: 40px; text-align: center; color: var(--muted);
-}
-
-.u-inline-57 {
-  display:inline-block; vertical-align:-1px; margin-right:3px;
-}
-
-.u-inline-58 {
-  display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px;
-}
-
-.u-inline-59 {
-  color: var(--ink); font-weight: 600;
-}
-
-.u-inline-60 {
-  font-weight: 600;
-}
-
-.u-inline-61 {
-  white-space: nowrap;
-}
-
-.u-inline-62 {
-  color: var(--muted); text-align: center; padding: 20px;
-}
-
-.u-inline-63 {
-  color: var(--muted); margin: 0;
-}
-
-.u-inline-64 {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 14px; margin-top: 14px;
-}
-
-.u-inline-65 {
-  font-size: 10px; padding: 2px 7px;
-}
-
-.u-inline-66 {
-  display: flex; flex-direction: column; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; transition: transform 0.2s ease, border-color 0.2s ease;
-}
-
-.u-inline-67 {
-  height: 100px; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at center, rgba(101, 67, 138, 0.08), rgba(0, 0, 0, 0.02)); padding: 8px; position: relative;
-}
-
-.u-inline-68 {
-  object-fit: contain; max-height: 84px;
-}
-
-.u-inline-69 {
-  padding: 12px 14px; display: flex; flex-direction: column; flex: 1; border-top: 1px solid var(--line);
-}
-
-.u-inline-70 {
-  display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-bottom: 6px;
-}
-
-.u-inline-71 {
-  margin: 0; font-size: 13.5px; font-weight: 700; color: var(--ink);
-}
-
-.u-inline-72 {
-  margin: 0; font-size: 11.5px; line-height: 1.45; color: var(--muted); flex: 1;
-}
-
-.u-inline-73 {
-  margin-bottom: 20px;
-}
-
-.u-inline-74 {
-  display: inline-flex; align-items: center; gap: 8px;
-}
-
-.u-inline-75 {
-  margin-top: 0; margin-bottom: 12px; font-size: 1.25rem;
-}
-
-.u-inline-76 {
-  width: 100%; border-collapse: collapse; margin-bottom: 14px;
-}
-
-.u-inline-77 {
-  border-bottom: 1px solid var(--line);
-}
-
-.u-inline-78 {
-  padding: 10px 0; font-weight: 600; width: 180px; color: var(--muted);
-}
-
-.u-inline-79 {
-  padding: 10px 0; font-family: monospace;
-}
-
-.u-inline-80 {
-  padding: 10px 0; font-weight: 600; color: var(--muted);
-}
-
-.u-inline-81 {
-  padding: 10px 0;
-}
-
-.u-inline-82 {
-  overflow-x: auto;
-}
-
-.u-inline-83 {
-  width: 36%;
-}
-
-.u-inline-84 {
-  width: 100px; white-space: nowrap;
-}
-
-.u-inline-85 {
-  padding: 40px 0; text-align: center;
-}
-
-.u-inline-86 {
-  color: var(--muted); margin: 12px auto 24px auto; max-width: 480px;
-}
-
-.u-inline-87 {
-  color: var(--muted); margin-bottom: 20px;
-}
