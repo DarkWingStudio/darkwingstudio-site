@@ -1,5 +1,10 @@
-publish = "."
+[build]
+  command = "npm run build"
+  publish = "."
+  [build.environment]
+    NODE_VERSION = "22"
 
+# --- Global security headers ---
 [[headers]]
   for = "/*"
   [headers.values]
@@ -10,25 +15,23 @@ publish = "."
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
     Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
 
+# --- Caching ---
+# HTML and generated assets are revalidated so a deploy cannot strand visitors
+# on year-old CSS/JS. Fingerprint filenames before switching these to immutable.
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
 [[headers]]
   for = "/*.css"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/**/*.css"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Cache-Control = "public, max-age=0, must-revalidate"
 
 [[headers]]
   for = "/*.js"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/**/*.js"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Cache-Control = "public, max-age=0, must-revalidate"
 
 [[headers]]
   for = "/*.webp"
@@ -50,7 +53,81 @@ publish = "."
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# Catch-all: serve custom 404 page for any unmatched route
+# --- URL normalisation ---
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+  force = true
+
+# --- Do not publish repository sources ---
+[[redirects]]
+  from = "/package.json"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/package-lock.json"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/README.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/AUDIT_REPORT.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/scripts/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/styles/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/.github/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/.nvmrc"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/.editorconfig"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/.gitignore"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/.well-known/security.txt"
+  to = "/.well-known/security.txt"
+  status = 200
+  force = true
+
+# Catch-all: serve custom 404 page for any unmatched route (must stay last)
 [[redirects]]
   from = "/*"
   to = "/404.html"

@@ -43,7 +43,6 @@
   object-fit: cover;
 }
 
-.topbar-label,
 .eyebrow,
 .profile-caption,
 .section-index,
@@ -55,20 +54,11 @@
   letter-spacing: 0.13em;
 }
 
-.topbar-label {
-  color: var(--muted);
-}
-
-.topbar-label span {
-  margin: 0 7px;
-  color: var(--accent);
-}
-
 .site-card {
   display: grid;
   grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
   overflow: hidden;
-  border: 1px solid #d8d4cb;
+  border: 1px solid var(--line-soft);
   border-radius: 15px;
   background: var(--panel);
   box-shadow: 0 24px 60px rgb(30 25 29 / 8%), 0 12px 24px rgb(30 25 29 / 4%);
@@ -98,7 +88,7 @@
   display: block;
   width: 92px;
   height: 92px;
-  border: 1px solid #d6cbdc;
+  border: 1px solid var(--line-accent);
   border-radius: 14px 4px 14px 4px;
   background: var(--night);
   object-fit: cover;
@@ -120,7 +110,7 @@
 
 .eyebrow span {
   margin: 0 3px;
-  color: #aaa3a8;
+  color: var(--muted-soft);
 }
 
 h1,
@@ -185,7 +175,7 @@ h1 span {
 .links-panel {
   padding: clamp(37px, 5vw, 62px) clamp(28px, 4.4vw, 56px);
   border-left: 1px solid var(--line);
-  background: #f6f5f0;
+  background: var(--paper-soft);
 }
 
 .section-heading {
@@ -199,7 +189,7 @@ h1 span {
 
 .section-index span {
   padding: 0 4px;
-  color: #69666a;
+  color: var(--muted);
 }
 
 h2 {
@@ -222,7 +212,7 @@ h2 {
   border: 1px solid var(--night);
   border-radius: 10px 4px 10px 4px;
   background: var(--night);
-  color: #faf8f2;
+  color: var(--light-ink);
   text-decoration: none;
   transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
 }
@@ -234,7 +224,7 @@ h2 {
 .featured-link:hover {
   transform: translateY(-2px);
   border-color: var(--accent);
-  background: #302a36;
+  background: var(--night-raised);
 }
 
 .featured-topline {
@@ -242,12 +232,12 @@ h2 {
 }
 
 .featured-label {
-  color: #c9b7da;
+  color: var(--night-soft-strong);
   font-size: 11px;
 }
 
 .featured-link .link-arrow {
-  color: #ddd1e7;
+  color: var(--night-text);
 }
 
 .featured-title,
@@ -283,7 +273,7 @@ h2 {
 }
 
 .other-links-heading>span {
-  color: #59565a;
+  color: var(--muted-strong);
   font-size: 11px;
 }
 
@@ -308,7 +298,7 @@ h2 {
 }
 
 .link-row:hover {
-  background: #eeece6;
+  background: var(--paper-shade);
 }
 
 .link-monogram {
@@ -317,10 +307,10 @@ h2 {
   height: 34px;
   flex: 0 0 auto;
   place-items: center;
-  border: 1px solid #d9d2df;
+  border: 1px solid var(--line-lilac);
   border-radius: 8px 3px 8px 3px;
   background: var(--accent-soft);
-  color: #4d3167;
+  color: var(--accent-deep);
   font-size: 11px;
   font-weight: 760;
   letter-spacing: 0.01em;
@@ -347,7 +337,7 @@ h2 {
 .link-arrow {
   display: inline-block;
   flex: 0 0 auto;
-  color: #6d696d;
+  color: var(--muted-cool);
   font-size: 18px;
   line-height: 1;
   vertical-align: middle;
@@ -375,9 +365,9 @@ h2 {
   gap: 8px;
   min-height: 38px;
   padding: 7px 11px;
-  border: 1px solid #cbc4d1;
+  border: 1px solid var(--line-cool);
   border-radius: 6px;
-  color: #4f326c;
+  color: var(--accent-deeper);
   font-size: 12px;
   font-weight: 650;
   text-decoration: none;
@@ -399,7 +389,7 @@ h2 {
   margin-top: 28px;
   padding: 34px 38px max(24px, env(safe-area-inset-bottom, 20px));
   overflow: hidden;
-  border: 1px solid #38323f;
+  border: 1px solid var(--line-night);
   border-radius: 16px 5px 16px 5px;
   background: var(--night);
   color: var(--light-ink);
@@ -414,7 +404,7 @@ h2 {
   gap: 12px 18px;
   padding-bottom: 18px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  color: #c9c1d0;
+  color: var(--night-text-cool);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -422,7 +412,7 @@ h2 {
 }
 
 .footer-topline span:last-child {
-  color: #a69eae;
+  color: var(--night-text-faint);
 }
 
 .footer-main {
@@ -478,7 +468,7 @@ h2 {
 .footer-description {
   max-width: 34ch;
   margin: 16px 0 0;
-  color: #c7c0cc;
+  color: var(--night-text-cooler);
   font-size: 13px;
   line-height: 1.65;
 }
@@ -487,7 +477,7 @@ h2 {
 .footer-column h3,
 .footer-column .footer-heading {
   margin: 2px 0 14px;
-  color: #d0c0df;
+  color: var(--night-text-soft);
   font-size: 11px;
   font-weight: 740;
   letter-spacing: 0.12em;
@@ -508,7 +498,7 @@ h2 {
   align-items: center;
   gap: 9px;
   min-height: 24px;
-  color: #e8e3eb;
+  color: var(--night-text-bright);
   font-size: 13px;
   line-height: 1.35;
   text-decoration: none;
@@ -520,7 +510,7 @@ h2 {
   width: 16px;
   height: 16px;
   flex: 0 0 auto;
-  color: #bca0d2;
+  color: var(--night-text-violet);
   transition: color 150ms ease, transform 150ms ease;
 }
 
@@ -530,13 +520,13 @@ h2 {
 }
 
 .footer-links a:hover {
-  color: #d8bfed;
+  color: var(--night-text-lilac);
   text-decoration: underline;
   text-decoration-color: rgba(216, 191, 237, 0.55);
 }
 
 .footer-links a:hover .footer-icon {
-  color: #e0c7f6;
+  color: var(--night-text-brightest);
   transform: translateY(-1px);
 }
 
@@ -548,14 +538,14 @@ h2 {
   gap: 14px 24px;
   padding-top: 18px;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
-  color: #b7afbd;
+  color: var(--night-text-muted);
   font-size: 11px;
   line-height: 1.5;
 }
 
 .footer-bottom .copyright {
   margin: 0;
-  color: #b7afbd;
+  color: var(--night-text-muted);
 }
 
 .footer-legal {
@@ -571,7 +561,7 @@ h2 {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  color: #d5cedb;
+  color: var(--night-text-pale);
   text-decoration: none;
   font-size: 11px;
   font-weight: 550;
@@ -586,7 +576,7 @@ h2 {
 .footer-legal .footer-icon {
   width: 13px;
   height: 13px;
-  color: #a99ab6;
+  color: var(--night-text-dim);
 }
 
 .site-footer a:focus-visible {
@@ -624,7 +614,7 @@ h2 {
     flex-direction: column;
     align-items: flex-start;
     gap: 6px;
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .footer-main {
@@ -659,10 +649,6 @@ h2 {
   }
 }
 
-.social-block-mobile {
-  display: none;
-}
-
 @media (max-width: 760px) {
   .site-frame {
     width: min(100% - 28px, 560px);
@@ -685,26 +671,9 @@ h2 {
     border-radius: 8px 3px 8px 3px;
   }
 
-  .topbar-label {
-    font-size: 11px;
-    letter-spacing: 0.1em;
-  }
-
-  .topbar-label span {
-    margin: 0 3px;
-  }
-
   .site-card {
     grid-template-columns: 1fr;
     border-radius: 12px;
-  }
-
-  .social-block-desktop {
-    display: none;
-  }
-
-  .social-block-mobile {
-    display: block;
   }
 
   .intro-panel {
@@ -782,10 +751,6 @@ h2 {
 @media (max-width: 380px) {
   .site-frame {
     width: calc(100% - 20px);
-  }
-
-  .topbar-label {
-    font-size: 11px;
   }
 
   .intro-panel {

@@ -13,8 +13,6 @@
   const suggestionLink = document.getElementById("suggestion-link");
 
   const suggestions = [
-    { test: /(arcade|game|play|runner|trex|t-rex)/, name: "Arcade Games", url: "/arcade/" },
-    { test: /(mob|creeper|warden|zombie|skeleton|enderman|breeze|allay|mine)/, name: "Minecraft Mob Database", url: "/minecraft/mobs/" },
     { test: /(art|wall|pfp|avatar|down)/, name: "Wallpapers & PFPs", url: "/art/assets/" },
     { test: /(proj|code|git|soft|tool)/, name: "Software Projects", url: "/projects/" },
     { test: /(about|rohit|bio|who)/, name: "About Studio", url: "/about/" },

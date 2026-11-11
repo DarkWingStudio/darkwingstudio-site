@@ -13,6 +13,45 @@
   --night: #25212a;
   --night-soft: #d8d0df;
   --focus: #9a7041;
+
+  /* Extended palette */
+  --paper-soft: #f6f5f0;
+  --paper-shade: #eeece6;
+  --line-soft: #d8d4cb;
+  --line-accent: #d6cbdc;
+  --line-lilac: #d9d2df;
+  --line-cool: #cbc4d1;
+  --line-night: #38323f;
+  --muted-soft: #aaa3a8;
+  --muted-strong: #59565a;
+  --muted-cool: #6d696d;
+  --muted-faint: #bbb5b8;
+  --white: #ffffff;
+  --night-raised: #302a36;
+  --night-deep: #251f2b;
+  --night-deeper: #15131a;
+  --night-soft-strong: #c9b7da;
+  --night-text: #ddd1e7;
+  --night-text-soft: #d0c0df;
+  --night-text-bright: #e8e3eb;
+  --night-text-brightest: #e0c7f6;
+  --night-text-muted: #b7afbd;
+  --night-text-dim: #a99ab6;
+  --night-text-faint: #a69eae;
+  --night-text-pale: #d5cedb;
+  --night-text-lilac: #d8bfed;
+  --night-text-violet: #bca0d2;
+  --night-text-cool: #c9c1d0;
+  --night-text-cooler: #c7c0cc;
+  --night-text-whisper: #d9d0e2;
+  --accent-deep: #4d3167;
+  --accent-deeper: #4f326c;
+  --accent-surface: #523472;
+  --accent-bright: #f7efff;
+  --status-easy: #1e6823;
+  --status-info: #155d8a;
+  --status-danger: #961f12;
+  --status-security: #69298c;
   font-family: Inter, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -24,6 +63,10 @@
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
 }
 
 html {

@@ -5,19 +5,6 @@ function initSite() {
     el.textContent = currentYear;
   });
 
-  const emailLinks = document.querySelectorAll(".js-email-link");
-  if (emailLinks.length > 0) {
-    const addrBytes = [100, 97, 114, 107, 119, 105, 110, 103, 100, 111, 109, 97, 105, 110, 64, 103, 109, 97, 105, 108, 46, 99, 111, 109];
-    const address = addrBytes.map(b => String.fromCharCode(b)).join("");
-
-    emailLinks.forEach(emailLink => {
-      emailLink.href = `mailto:${address}`;
-      emailLink.removeAttribute("target");
-      emailLink.removeAttribute("rel");
-      emailLink.setAttribute("aria-label", "Email DarkWing Studio");
-    });
-  }
-
   // Handle the gallery filter buttons
   const filterBtns = document.querySelectorAll(".asset-filter");
   const cards = document.querySelectorAll(".asset-card");
@@ -62,16 +49,24 @@ function initSite() {
   });
 
   const revealItems = document.querySelectorAll(".intro-panel > *, .links-panel > *");
-  if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    revealItems.forEach((item, index) => {
-      item.classList.add("reveal-on-load");
-    });
-
-    requestAnimationFrame(() => {
-      document.querySelectorAll(".reveal-on-load").forEach(item => {
-        item.classList.add("is-visible");
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (revealItems.length && !prefersReducedMotion) {
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.12 });
+      revealItems.forEach((item, index) => {
+        item.style.setProperty("--reveal-delay", `${Math.min(index * 40, 240)}ms`);
+        item.classList.add("reveal-on-load");
+        observer.observe(item);
       });
-    });
+    } else {
+      revealItems.forEach((item) => item.classList.add("is-visible"));
+    }
   }
 }
 if (document.readyState === "loading") {

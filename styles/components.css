@@ -13,7 +13,7 @@
 .sidebar-panel {
   padding: clamp(37px, 5vw, 62px) clamp(28px, 4.4vw, 56px);
   border-left: 1px solid var(--line);
-  background: #f6f5f0;
+  background: var(--paper-soft);
 }
 
 .sidebar-heading {
@@ -49,7 +49,7 @@
   display: block;
   width: 80px;
   height: 80px;
-  border: 1px solid #d6cbdc;
+  border: 1px solid var(--line-accent);
   border-radius: 14px 4px 14px 4px;
   object-fit: cover;
   flex: 0 0 auto;
@@ -105,7 +105,7 @@
 .breadcrumb li:not(:last-child)::after {
   content: "/";
   margin-left: 6px;
-  color: #bbb5b8;
+  color: var(--muted-faint);
 }
 
 .breadcrumb a {
@@ -365,11 +365,11 @@
 .featured-tag {
   display: inline-block;
   padding: 2px 8px;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: #d9d0e2;
+  color: var(--night-text-whisper);
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 4px;
@@ -377,7 +377,7 @@
 }
 
 .featured-link:hover .featured-tag {
-  color: #ffffff;
+  color: var(--white);
   border-color: rgba(255, 255, 255, 0.28);
   background: rgba(255, 255, 255, 0.14);
 }
@@ -486,7 +486,7 @@
 .asset-filter.active {
   border-color: var(--accent);
   background: var(--night);
-  color: #faf8f2;
+  color: var(--light-ink);
 }
 
 .asset-gallery {
@@ -501,7 +501,7 @@
   border: 1px solid var(--night);
   border-radius: 10px 4px 10px 4px;
   background: var(--night);
-  color: #faf8f2;
+  color: var(--light-ink);
   overflow: hidden;
   text-decoration: none;
   transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1), border-color 400ms ease, background-color 400ms ease, box-shadow 400ms ease;
@@ -510,7 +510,7 @@
 .asset-card:hover {
   transform: translateY(-4px);
   border-color: var(--accent);
-  background: #302a36;
+  background: var(--night-raised);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.06);
 }
 
@@ -518,7 +518,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
-  background: #251f2b;
+  background: var(--night-deep);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   overflow: hidden;
 }
@@ -553,7 +553,7 @@
 }
 
 .asset-card-source {
-  color: #c9b7da;
+  color: var(--night-soft-strong);
   font-size: 11px;
 }
 
@@ -562,7 +562,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: #ddd1e7;
+  color: var(--night-text);
   font-size: 12px;
   font-weight: 500;
 }

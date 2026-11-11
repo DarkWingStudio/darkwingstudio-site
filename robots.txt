@@ -4,10 +4,6 @@
 # Default Rule for General Web Crawlers
 User-agent: *
 Allow: /
-Disallow: /.git/
-Disallow: /node_modules/
-Disallow: /.env
-Disallow: /scratch/
 
 # Google Search
 User-agent: Googlebot

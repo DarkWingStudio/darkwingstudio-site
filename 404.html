@@ -13,8 +13,9 @@
   <meta name="author" content="DarkWing Studio">
   <meta name="robots" content="noindex, follow">
 
-  <link rel="icon" type="image/webp" href="/assets/ProfilePIC.webp">
-  <link rel="apple-touch-icon" href="/assets/ProfilePIC.webp">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon-180.png">
   <link rel="manifest" href="/site.webmanifest">
   <link rel="stylesheet" href="/styles.css">
   <script src="/script.js" defer></script>
@@ -28,7 +29,7 @@
   <div class="site-frame">
     <header class="topbar">
       <a class="wordmark" href="/" aria-label="DarkWing Studio home">
-        <img src="/assets/ProfilePIC.webp" alt="DarkWing Studio Logo" class="wordmark-icon u-inline-1" width="34" height="34"
+        <img src="/assets/profile/profile-128.webp" alt="DarkWing Studio Logo" class="wordmark-icon" width="34" height="34"
          >
         <span>DarkWing Studio</span>
       </a>
@@ -36,11 +37,10 @@
         <a href="/about/" class="topbar-nav-link">About</a>
         <a href="/projects/" class="topbar-nav-link">Projects</a>
         <a href="/art/" class="topbar-nav-link">Art</a>
-        <a href="/arcade/" class="topbar-nav-link">Arcade</a>
       </nav>
     </header>
 
-    <main class="site-card site-card--single u-inline-2" id="error-main"
+    <main class="site-card site-card--single" id="error-main"
      >
       <div class="error-page-wrapper">
         <div class="error-hero-container">
@@ -75,17 +75,17 @@
 
           <!-- Dynamic Smart Suggestion Box (activated via JS if typo is detected) -->
           <div class="error-suggestion-box" id="suggestion-box" role="alert">
-            <div class="u-inline-3">
+            <div class="error-suggestion-inner">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
-                class="u-inline-4">
+                class="error-suggestion-icon">
                 <circle cx="12" cy="12" r="10" />
                 <line x1="12" y1="16" x2="12" y2="12" />
                 <line x1="12" y1="8" x2="12.01" y2="8" />
               </svg>
-              <span>Suggested Destination: <strong id="suggestion-name" class="u-inline-5"></strong></span>
+              <span>Suggested Destination: <strong id="suggestion-name" class="error-suggestion-name"></strong></span>
             </div>
-            <a href="#" id="suggestion-link" class="btn-primary u-inline-6">Visit Page
+            <a href="#" id="suggestion-link" class="btn-primary btn-sm">Visit Page
               →</a>
           </div>
 
@@ -202,22 +202,22 @@
         <div class="error-secondary-nav">
           <span>Looking for studio background or legal info?</span>
           <a href="/changelog/">Changelog</a>
-          <span class="u-inline-8">·</span>
+          <span class="error-divider">·</span>
           <a href="/privacy/">Privacy Policy</a>
-          <span class="u-inline-8">·</span>
+          <span class="error-divider">·</span>
           <a href="/terms/">Terms of Use</a>
-          <span class="u-inline-8">·</span>
+          <span class="error-divider">·</span>
           <a href="/about/">About Studio</a>
         </div>
 
         <!-- Centered Contact / Broken Link Reporting -->
         <div class="error-contact-block">
           <span>Found a broken link or misplaced coordinate?</span>
-          <a class="contact-link js-email-link" href="#" rel="nofollow">
+          <a class="contact-link" href="mailto:darkwingdomain@gmail.com">
             <span>Report Broken Link</span>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
               stroke="currentColor" aria-hidden="true" width="16" height="16"
-              class="u-inline-9">
+             >
               <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
             </svg>
           </a>
@@ -233,8 +233,8 @@
 
       <div class="footer-main">
         <section class="footer-brand" aria-label="About DarkWing Studio">
-          <a class="brand-lockup" href="/" aria-label="DarkWing Studio home">
-            <img src="/assets/ProfilePIC.webp" width="40" height="40" alt="" loading="lazy" decoding="async">
+          <a class="brand-lockup" href="/">
+            <img src="/assets/profile/profile-128.webp" width="40" height="40" alt="" loading="lazy" decoding="async">
             <span><strong>DarkWing Studio</strong><small>Artwork · 3D · Web builds</small></span>
           </a>
           <p class="footer-description">Open-source web experiments, software projects, and 3D digital art. Built by Rohit Kumar and shared freely from one studio.</p>
@@ -246,7 +246,6 @@
             <li><a href="/about/"><svg class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path stroke-linecap="round" d="M5.7 20c.5-3.3 2.8-5.2 6.3-5.2s5.8 1.9 6.3 5.2"/></svg><span>About the studio</span></a></li>
             <li><a href="/projects/"><svg class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linejoin="round" d="M3.5 6.5h6l2 2h9v10.8H3.5z"/><path stroke-linecap="round" d="M3.5 9h17"/></svg><span>Projects</span></a></li>
             <li><a href="/art/"><svg class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linejoin="round" d="M12 3.5a8.5 8.5 0 1 0 0 17h1.2a2.1 2.1 0 0 0 1.4-3.7c-.8-.7-.3-2 1-2h1.1a4.8 4.8 0 0 0 4.8-4.8c0-3.6-4.2-6.5-9.5-6.5Z"/><circle cx="7.8" cy="11" r=".9" fill="currentColor"/><circle cx="10.5" cy="7.7" r=".9" fill="currentColor"/><circle cx="15" cy="8" r=".9" fill="currentColor"/></svg><span>Digital art</span></a></li>
-            <li><a href="/arcade/"><svg class="footer-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path stroke-linecap="round" d="M8 12h4m-2-2v4M16 11h.01M18 13h.01"/></svg><span>Arcade</span></a></li>
           </ul>
         </nav>
 

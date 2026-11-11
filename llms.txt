@@ -8,9 +8,6 @@
 - [Projects](https://darkwingstudio.netlify.app/projects/): Software, web experiments, and open-source GitHub repositories.
 - [Art](https://darkwingstudio.netlify.app/art/): Digital art showcases, 3D renders, and visual creations.
 - [Art Assets](https://darkwingstudio.netlify.app/art/assets/): Downloadable 4K wallpapers and profile avatars.
-- [Arcade Hub](https://darkwingstudio.netlify.app/arcade/): DarkWing Studio arcade games listing.
-- [T-Rex Runner](https://darkwingstudio.netlify.app/arcade/t-rex-runner/): Endless runner canvas game with offline PWA support, day/night cycle, and zero external libraries.
-- [Minecraft Database](https://darkwingstudio.netlify.app/minecraft/mobs/): Minecraft mob compendium with stats, drops, and lore.
 - [Changelog](https://darkwingstudio.netlify.app/changelog/): Chronological release log of studio updates, feature additions, and technical milestones.
 - [Privacy Policy](https://darkwingstudio.netlify.app/privacy/): Static hosting, contact data, cookie transparency, and privacy disclosure.
 - [Terms of Use](https://darkwingstudio.netlify.app/terms/): Personal wallpaper download license, MIT code license, and copyright notices.
@@ -30,4 +27,4 @@
 ## Content and Architecture
 - The site has no advertising, third-party analytics, or tracking cookies.
 - Hosted statically with strict Content Security Policy and zero server-side runtimes.
-- The Arcade section uses localStorage exclusively to persist game high scores on-device; no data is transmitted to any server.
+- The site does not write to localStorage or set first-party cookies.

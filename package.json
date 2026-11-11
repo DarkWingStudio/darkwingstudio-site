@@ -1,14 +1,27 @@
 {
   "name": "darkwing-studio",
-  "version": "3.0.0",
+  "version": "3.2.1",
+  "private": true,
   "description": "Static creative studio platform for DarkWing Studio",
   "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "generate": "node scripts/generate.js",
     "build": "node scripts/generate.js",
-    "serve": "python -m http.server 5500"
+    "serve": "node scripts/serve.js",
+    "check:html": "node scripts/check-html.js",
+    "check:links": "node scripts/check-links.js",
+    "check:sitemap": "node scripts/check-sitemap.js",
+    "check": "npm run check:html && npm run check:links && npm run check:sitemap",
+    "test": "npm run build && npm run check",
+    "icons": "node scripts/build-icons.js",
+    "profile": "node scripts/build-profile.js"
   },
   "author": "DarkWing Studio",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "sharp": "^0.35.5"
+  }
 }
-

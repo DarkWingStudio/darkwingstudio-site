@@ -1,10 +1,32 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { discoverIndexFiles } from './routes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
+
+// Use the last commit date for tracked, unmodified pages so builds are reproducible.
+// Fall back to the file mtime for untracked files or when git is unavailable.
+function getLastmod(file) {
+  const rel = path.relative(rootDir, file).split(path.sep).join('/');
+  try {
+    const dirty = execFileSync('git', ['status', '--porcelain', '--', rel], {
+      cwd: rootDir, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore']
+    }).trim();
+    if (!dirty) {
+      const committed = execFileSync('git', ['log', '-1', '--format=%cs', '--', rel], {
+        cwd: rootDir, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore']
+      }).trim();
+      if (/^\d{4}-\d{2}-\d{2}$/.test(committed)) return committed;
+    }
+  } catch {
+    // git is unavailable; use the filesystem timestamp below
+  }
+  return fs.statSync(file).mtime.toISOString().split('T')[0];
+}
 
 // Helper to escape HTML text
 function escapeHtml(str) {
@@ -59,8 +81,8 @@ function getSharedFooter() {
 
       <div class="footer-main">
         <section class="footer-brand" aria-label="About DarkWing Studio">
-          <a class="brand-lockup" href="/" aria-label="DarkWing Studio home">
-            <img src="/assets/ProfilePIC.webp" width="40" height="40" alt="" loading="lazy" decoding="async">
+          <a class="brand-lockup" href="/">
+            <img src="/assets/profile/profile-128.webp" width="40" height="40" alt="" loading="lazy" decoding="async">
             <span><strong>DarkWing Studio</strong><small>Artwork · 3D · Web builds</small></span>
           </a>
           <p class="footer-description">Open-source web experiments, software projects, and 3D digital art. Built by Rohit Kumar and shared freely from one studio.</p>
@@ -72,7 +94,6 @@ function getSharedFooter() {
             <li><a href="/about/"><svg class="footer-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path stroke-linecap="round" d="M5.7 20c.5-3.3 2.8-5.2 6.3-5.2s5.8 1.9 6.3 5.2"/></svg><span>About the studio</span></a></li>
             <li><a href="/projects/"><svg class="footer-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linejoin="round" d="M3.5 6.5h6l2 2h9v10.8H3.5z"/><path stroke-linecap="round" d="M3.5 9h17"/></svg><span>Projects</span></a></li>
             <li><a href="/art/"><svg class="footer-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linejoin="round" d="M12 3.5a8.5 8.5 0 1 0 0 17h1.2a2.1 2.1 0 0 0 1.4-3.7c-.8-.7-.3-2 1-2h1.1a4.8 4.8 0 0 0 4.8-4.8c0-3.6-4.2-6.5-9.5-6.5Z"/><circle cx="7.8" cy="11" r=".9" fill="currentColor"/><circle cx="10.5" cy="7.7" r=".9" fill="currentColor"/><circle cx="15" cy="8" r=".9" fill="currentColor"/></svg><span>Digital art</span></a></li>
-            <li><a href="/arcade/"><svg class="footer-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path stroke-linecap="round" d="M8 12h4m-2-2v4M16 11h.01M18 13h.01"/></svg><span>Arcade</span></a></li>
             <li><a href="/minecraft/mobs/"><svg class="footer-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg><span>Minecraft Database</span></a></li>
           </ul>
         </nav>
@@ -121,7 +142,8 @@ function generateMinecraft() {
   console.log('[Minecraft] Reading data/mobs.json...');
   const mobsFile = path.join(rootDir, 'data', 'mobs.json');
   if (!fs.existsSync(mobsFile)) {
-    throw new Error('data/mobs.json does not exist');
+    console.warn('[Minecraft] data/mobs.json not found - skipping Minecraft generation.');
+    return;
   }
 
   const mobs = JSON.parse(fs.readFileSync(mobsFile, 'utf8'));
@@ -140,7 +162,12 @@ function generateMinecraft() {
     if (mob.variants && mob.variants.length > 0) {
       const cards = mob.variants.map(v => {
         const vTitle = v.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-        const variantSprite = `/assets/mobs/variants/${v}.webp`;
+        // Prefer a dedicated variant sprite, then fall back to the base mob sprite.
+        const variantSprite = [
+          `/assets/mobs/variants/${v}.webp`,
+          `/assets/mobs/${v}.webp`,
+          mob.sprite
+        ].find((src) => src && fs.existsSync(path.join(rootDir, src.replace(/^\//, '')))) || mob.sprite;
         return `            <div class="mob-variant-card">
               <div class="mob-variant-image">
                 <img src="${variantSprite}" alt="${escapeHtml(vTitle)}" width="96" height="96" loading="lazy">
@@ -195,10 +222,11 @@ ${cards}
   <meta name="twitter:description" content="${escapeHtml(mob.description)}">
   <meta name="twitter:image" content="https://darkwingstudio.netlify.app/assets/og-image.jpg">
 
-  <link rel="icon" type="image/webp" href="/assets/ProfilePIC.webp">
-  <link rel="apple-touch-icon" href="/assets/ProfilePIC.webp">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon-180.png">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="stylesheet" href="/styles.css?v=3">
+  <link rel="stylesheet" href="/styles.css">
   <script src="/script.js" defer></script>
 
   <script type="application/ld+json">
@@ -228,15 +256,14 @@ ${cards}
 
   <div class="site-frame">
     <header class="topbar">
-      <a class="wordmark" href="/" aria-label="DarkWing Studio home">
-        <img src="/assets/ProfilePIC.webp" alt="DarkWing Studio Logo" class="wordmark-icon" width="34" height="34">
+      <a class="wordmark" href="/">
+        <img src="/assets/profile/profile-128.webp" alt="DarkWing Studio Logo" class="wordmark-icon" width="34" height="34">
         <span>DarkWing Studio</span>
       </a>
       <nav class="topbar-nav" aria-label="Site sections">
         <a href="/about/" class="topbar-nav-link">About</a>
         <a href="/projects/" class="topbar-nav-link">Projects</a>
         <a href="/art/" class="topbar-nav-link">Art</a>
-        <a href="/arcade/" class="topbar-nav-link">Arcade</a>
         <a href="/minecraft/mobs/" class="topbar-nav-link is-active" aria-current="page">Minecraft</a>
       </nav>
     </header>
@@ -395,10 +422,11 @@ ${getSharedFooter()}
   <meta name="twitter:description" content="Curated Minecraft mob encyclopedia with vital stats, hostility tags, variants, and loot tables.">
   <meta name="twitter:image" content="https://darkwingstudio.netlify.app/assets/og-image.jpg">
 
-  <link rel="icon" type="image/webp" href="/assets/ProfilePIC.webp">
-  <link rel="apple-touch-icon" href="/assets/ProfilePIC.webp">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon-180.png">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="stylesheet" href="/styles.css?v=3">
+  <link rel="stylesheet" href="/styles.css">
   <script src="/script.js" defer></script>
 
   <script type="application/ld+json">
@@ -427,15 +455,14 @@ ${getSharedFooter()}
 
   <div class="site-frame">
     <header class="topbar">
-      <a class="wordmark" href="/" aria-label="DarkWing Studio home">
-        <img src="/assets/ProfilePIC.webp" alt="DarkWing Studio Logo" class="wordmark-icon" width="34" height="34">
+      <a class="wordmark" href="/">
+        <img src="/assets/profile/profile-128.webp" alt="DarkWing Studio Logo" class="wordmark-icon" width="34" height="34">
         <span>DarkWing Studio</span>
       </a>
       <nav class="topbar-nav" aria-label="Site sections">
         <a href="/about/" class="topbar-nav-link">About</a>
         <a href="/projects/" class="topbar-nav-link">Projects</a>
         <a href="/art/" class="topbar-nav-link">Art</a>
-        <a href="/arcade/" class="topbar-nav-link">Arcade</a>
         <a href="/minecraft/mobs/" class="topbar-nav-link is-active" aria-current="page">Minecraft</a>
       </nav>
     </header>
@@ -482,10 +509,6 @@ ${catalogCardsHtml}
           </a>
           <a class="link-row" href="/projects/">
             <span class="link-copy"><span class="link-title">Developer Projects</span></span>
-          </a>
-          <a class="link-row" href="/arcade/">
-            <span class="link-copy"><span class="link-title">Arcade Game</span></span>
-            <span class="tag-chip">New</span>
           </a>
         </nav>
 
@@ -538,10 +561,11 @@ ${getSharedFooter()}
   <meta name="twitter:description" content="Structured vanilla Minecraft reference compendium with mob statistics and loot data.">
   <meta name="twitter:image" content="https://darkwingstudio.netlify.app/assets/og-image.jpg">
 
-  <link rel="icon" type="image/webp" href="/assets/ProfilePIC.webp">
-  <link rel="apple-touch-icon" href="/assets/ProfilePIC.webp">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon-180.png">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="stylesheet" href="/styles.css?v=3">
+  <link rel="stylesheet" href="/styles.css">
   <script src="/script.js" defer></script>
 
   <title>Minecraft Compendium | DarkWing Studio</title>
@@ -552,15 +576,14 @@ ${getSharedFooter()}
 
   <div class="site-frame">
     <header class="topbar">
-      <a class="wordmark" href="/" aria-label="DarkWing Studio home">
-        <img src="/assets/ProfilePIC.webp" alt="DarkWing Studio Logo" class="wordmark-icon" width="34" height="34">
+      <a class="wordmark" href="/">
+        <img src="/assets/profile/profile-128.webp" alt="DarkWing Studio Logo" class="wordmark-icon" width="34" height="34">
         <span>DarkWing Studio</span>
       </a>
       <nav class="topbar-nav" aria-label="Site sections">
         <a href="/about/" class="topbar-nav-link">About</a>
         <a href="/projects/" class="topbar-nav-link">Projects</a>
         <a href="/art/" class="topbar-nav-link">Art</a>
-        <a href="/arcade/" class="topbar-nav-link">Arcade</a>
         <a href="/minecraft/mobs/" class="topbar-nav-link is-active" aria-current="page">Minecraft</a>
       </nav>
     </header>
@@ -604,7 +627,6 @@ ${getSharedFooter()}
         <nav class="link-list" aria-label="Explore Minecraft">
           <a class="link-row" href="/minecraft/mobs/"><span class="link-copy"><span class="link-title">Mob Database</span></span></a>
           <a class="link-row" href="/projects/"><span class="link-copy"><span class="link-title">Projects</span></span></a>
-          <a class="link-row" href="/arcade/"><span class="link-copy"><span class="link-title">Arcade Game</span></span></a>
         </nav>
       </aside>
     </main>
@@ -621,43 +643,27 @@ ${getSharedFooter()}
 
 // 3. Update Sitemap
 function updateSitemap() {
-  console.log('[Sitemap] Updating sitemap.xml...');
-  const mobsFile = path.join(rootDir, 'data', 'mobs.json');
-  const mobs = fs.existsSync(mobsFile) ? JSON.parse(fs.readFileSync(mobsFile, 'utf8')) : [];
+  console.log('[Sitemap] Discovering routes...');
+  const baseUrl = 'https://darkwingstudio.netlify.app';
 
-  const coreRoutes = [
-    { loc: 'https://darkwingstudio.netlify.app/', priority: '1.0', changefreq: 'weekly', hasImage: true },
-    { loc: 'https://darkwingstudio.netlify.app/about/', priority: '0.7', changefreq: 'monthly' },
-    { loc: 'https://darkwingstudio.netlify.app/projects/', priority: '0.7', changefreq: 'monthly' },
-    { loc: 'https://darkwingstudio.netlify.app/art/', priority: '0.7', changefreq: 'monthly' },
-    { loc: 'https://darkwingstudio.netlify.app/art/assets/', priority: '0.7', changefreq: 'monthly' },
-    { loc: 'https://darkwingstudio.netlify.app/arcade/', priority: '0.7', changefreq: 'monthly' },
-    { loc: 'https://darkwingstudio.netlify.app/arcade/t-rex-runner/', priority: '0.7', changefreq: 'monthly' },
-    { loc: 'https://darkwingstudio.netlify.app/minecraft/', priority: '0.7', changefreq: 'monthly' },
-    { loc: 'https://darkwingstudio.netlify.app/minecraft/mobs/', priority: '0.8', changefreq: 'weekly' },
-    { loc: 'https://darkwingstudio.netlify.app/changelog/', priority: '0.7', changefreq: 'monthly' },
-    { loc: 'https://darkwingstudio.netlify.app/privacy/', priority: '0.7', changefreq: 'monthly' },
-    { loc: 'https://darkwingstudio.netlify.app/terms/', priority: '0.7', changefreq: 'monthly' }
-  ];
+  const routes = discoverIndexFiles(rootDir).map((relFile) => {
+    const dir = path.posix.dirname(relFile);
+    return {
+      url: dir === '.' ? `${baseUrl}/` : `${baseUrl}/${dir}/`,
+      lastmod: getLastmod(path.join(rootDir, relFile)),
+      isHome: dir === '.'
+    };
+  });
 
-  const today = new Date().toISOString().split('T')[0];
+  routes.sort((a, b) => (b.isHome - a.isHome) || a.url.localeCompare(b.url));
 
-  const urls = coreRoutes.map(route => {
-    let xml = `  <url>\n    <loc>${route.loc}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>${route.changefreq}</changefreq>\n    <priority>${route.priority}</priority>`;
-    if (route.hasImage) {
-      xml += `\n    <image:image>\n      <image:loc>https://darkwingstudio.netlify.app/assets/ProfilePIC.webp</image:loc>\n      <image:title>DarkWing Studio Profile Artwork</image:title>\n    </image:image>`;
+  const urls = routes.map(({ url, lastmod, isHome }) => {
+    let xml = `  <url>\n    <loc>${url}</loc>\n    <lastmod>${lastmod}</lastmod>`;
+    if (isHome) {
+      xml += `\n    <image:image>\n      <image:loc>${baseUrl}/assets/profile/profile-128.webp</image:loc>\n      <image:title>DarkWing Studio Profile Artwork</image:title>\n    </image:image>`;
     }
     xml += '\n  </url>';
     return xml;
-  });
-
-  mobs.forEach(mob => {
-    urls.push(`  <url>
-    <loc>https://darkwingstudio.netlify.app/minecraft/mobs/${mob.slug}/</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>`);
   });
 
   const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
